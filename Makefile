@@ -6,12 +6,16 @@ LIBS := -lpthread
 
 CM_O_FILES := $(OBJ_DIR)/main.o $(OBJ_DIR)/data.o
 
-.PHONY: all clean clean-data
+.PHONY: all clean clean-data dirr
 
-all: $(BIN_DIR)/$(TARGET)
+all: dirr $(BIN_DIR)/$(TARGET)
 
 clean-data:
 	rm -r $(BIN_DIR)/DATA/*
+dirr:
+	mkdir obj
+	mkdir bin
+	mkdir bin/DATA
 
 clean:
 	rm -r $(BIN_DIR)/$(TARGET) $(OBJ_DIR)/*.o
