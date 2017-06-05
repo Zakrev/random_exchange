@@ -4,15 +4,16 @@ OBJ_DIR := obj
 SRC_DIR := src
 LIBS := -lpthread
 
-CM_O_FILES := $(OBJ_DIR)/main.o $(OBJ_DIR)/data.o
+CM_O_FILES := $(OBJ_DIR)/main.o $(OBJ_DIR)/data.o $(OBJ_DIR)/exp.o
 
-.PHONY: all clean clean-data dirr
+.PHONY: all clean clean-data configure
 
-all: dirr $(BIN_DIR)/$(TARGET)
+all: $(BIN_DIR)/$(TARGET)
 
 clean-data:
 	rm -r $(BIN_DIR)/DATA/*
-dirr:
+
+configure:
 	mkdir obj
 	mkdir bin
 	mkdir bin/DATA
@@ -25,6 +26,9 @@ $(OBJ_DIR)/main.o: $(SRC_DIR)/main.c
 
 $(OBJ_DIR)/data.o: $(SRC_DIR)/data.c
 	gcc -c -o $(OBJ_DIR)/data.o $(SRC_DIR)/data.c
+	
+$(OBJ_DIR)/exp.o: $(SRC_DIR)/exp.c
+	gcc -c -o $(OBJ_DIR)/exp.o $(SRC_DIR)/exp.c
 
 $(BIN_DIR)/$(TARGET): $(CM_O_FILES)
 	gcc -o $(BIN_DIR)/$(TARGET) $(CM_O_FILES) $(LIBS)
