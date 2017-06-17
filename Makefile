@@ -6,17 +6,23 @@ LIBS := -lpthread
 
 CM_O_FILES := $(OBJ_DIR)/main.o $(OBJ_DIR)/data.o $(OBJ_DIR)/exp.o
 
-.PHONY: all clean clean-data configure
+.PHONY: all clean clean-data configure help
 
-all: $(BIN_DIR)/$(TARGET)
+help:
+	cat "info/Makefile_help"
+
+all: 
+	configure
+	clean
+	$(BIN_DIR)/$(TARGET)
 
 clean-data:
-	rm -r $(BIN_DIR)/DATA/*
+	rm -r $(BIN_DIR)/data/*
 
 configure:
-	mkdir obj
-	mkdir bin
-	mkdir bin/DATA
+	mkdir -p obj
+	mkdir -p bin
+	mkdir -p bin/data
 
 clean:
 	rm -r $(BIN_DIR)/$(TARGET) $(OBJ_DIR)/*.o

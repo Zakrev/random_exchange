@@ -38,17 +38,27 @@ ExpData {
 UsrData {
         unsigned int id;
         unsigned long long reg_days;
-        long long wmoney;
-        long long lmoney;
+        unsigned long long w_exchanges;
+        unsigned long long l_exchanges;
         unsigned long long exchanges;
         double percent;
         long long pmoney;
         long long mmoney;
         
-        unsigned int insert;
+        unsigned int insert_p;
         unsigned int min_group_size;
 };
 
 void get_StartData(int argv, char ** args, StartData * sdata);
-
+void print_ExpData(FILE * stream, ExpData * data);
+void save_ExpData(int fd, ExpData * data);
+void load_ExpData(int fd, ExpData * data);
+void print_ExpData(FILE * stream, ExpData * data);
+ssize_t save_ExpData(int fd, ExpData * data);
+ssize_t load_ExpData(int fd, ExpData * data);
+void print_UsrData(FILE * stream, UsrData * data);
+ssize_t save_UsrData(int fd, UsrData * data);
+ssize_t load_UsrData(int fd, UsrData * data);
+ssize_t save_ExpGroup(int fd, ExpGroup * data);
+ssize_t load_ExpGroup(int fd, ExpGroup * data);
 #endif

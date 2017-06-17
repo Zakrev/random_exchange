@@ -29,6 +29,9 @@ Exp {
         ExpData data;
         ExpGroup * group;
         Usr * user;
+        
+        int data_experiment;
+        int data_users;
 };
 
 #endif

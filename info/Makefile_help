@@ -1,0 +1,4 @@
+all             configure and compile project
+clean           delete object and main
+clean-data      clean all files from DATA/
+configure       configure project
