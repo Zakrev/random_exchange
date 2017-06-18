@@ -16,6 +16,9 @@ void get_StartData(int argv, char ** args, StartData * sdata)
                                 return;
                         }
                         break;
+                case 5:
+                        
+                        break;
                 case 6:
                         /*
                                 -new id -users n -days n
@@ -45,7 +48,7 @@ void get_StartData(int argv, char ** args, StartData * sdata)
         }
 
         sdata->cmd = 0;
-        printf("Need arguments: <-new id | -con id> <-users n> <-days n>\n");
+        printf("Need arguments: <-new | -con id> <-users n> <-days n>\n");
 }
 
 void print_ExpData(FILE * stream, ExpData * data)

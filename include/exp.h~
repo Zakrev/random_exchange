@@ -33,7 +33,6 @@ Exp {
         
         int data_experiment;
         int data_users;
-        unsigned long long exp_days;
 };
 
 #endif

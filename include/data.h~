@@ -41,7 +41,7 @@ UsrData {
         long long pmoney;
         long long mmoney;
         
-        unsigned char insert_p;
+        unsigned int insert_p;
         unsigned int min_group_size;
 };
 

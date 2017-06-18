@@ -126,15 +126,13 @@ Grp * create_group(unsigned int size, unsigned int wusers, unsigned char percent
         retuen grp;
 }
 
-Usr * create_user(unsigned long long reg_days, unsigned char insert_p, unsigned int min_group_size)
+Usr * create_user()
 {
         Usr * usr;
         
         usr = malloc(sizeof(Usr));
         if(usr == NULL)
                 return NULL;
-
-        
 
         return usr;
 }
