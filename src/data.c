@@ -63,18 +63,18 @@ void print_ExpData(FILE * stream, ExpData * data)
                 "\nGROUPS\t%u", data->id, data->days, data->users, data->money, data->register_intens, data->groups);
 }
 
-void save_ExpData(int fd, ExpData * data)
+ssize_t save_ExpData(int fd, ExpData * data)
 {
         if(data == NULL)
-                return;
-        write(fd, data, sizeof(ExpData));
+                return -1;
+        return write(fd, data, sizeof(ExpData));
 }
 
-void load_ExpData(int fd, ExpData * data)
+ssize_t load_ExpData(int fd, ExpData * data)
 {
         if(data == NULL)
-                return;
-        read(fd, data, sizeof(ExpData));
+                return -1;
+        return read(fd, data, sizeof(ExpData));
 }
 
 void print_ExpData(FILE * stream, ExpData * data)
