@@ -2,6 +2,7 @@
 #define _EXP_H_
 
 #include "../include/data.h"
+#include "../include/randomize.h"
 #include "main.h"
 
 #define PERC_OFF 0
@@ -35,5 +36,8 @@ Exp {
         int data_users;
         unsigned long long exp_days;
 };
+
+int load_experiment(StartData * data);
+int new_experiment(StartData * data);
 
 #endif

@@ -1,15 +1,27 @@
 #include "../include/randomize.h"
 
-static long long RANDOMIZE_STEP = 65535;
-
-long long random_next()
+static unsigned long mwc()
 {
-        CODE
-        return RANDOMIZE_STEP++;
+        static unsigned long x = 3456789;
+        static unsigned long y = 362436069;
+        static unsigned long z = 77465321;
+        static unsigned long c = 13579;
+        unsigned long long t;
+        
+        t = 6905990LL * x + c;
+        x = y;
+        y = z;
+        c = (t >> 32);
+        
+        return z = (t & 0xffffffff);
 }
 
-long long random_range(long long min, long long max)
+unsigned long random_next()
 {
-        CODE
-        return random_next;
+        return mwc();
+}
+
+unsigned long random_next_range(unsigned long min, unsigned long max)
+{
+        return random_next() % (max - min + 1) + min;
 }

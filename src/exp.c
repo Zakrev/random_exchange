@@ -1,5 +1,10 @@
 #include "../include/exp.h"
 
+void register_users(Exp * exp)
+{
+        CODE
+}
+
 int new_experiment(StartData * data)
 {
         /*Создание эксперимента*/
@@ -58,13 +63,13 @@ int new_experiment(StartData * data)
         /*Генерация и конфигурирование новых пользователей*/
         while(data->users > 0){
                 data->users -= 1;
-                usr = create_user(exp->data.days, unsigned char insert_p, unsigned int min_group_size);
+                usr = create_user(exp->data.days, random_next_range(5, 100), random_next_range(0, 500000));
                 if(usr == NULL){
                         PERR("create user");
                         return 1;
                 }
+                push_user(&exp->not_reg_users, usr);
         }
-        CODE
         
         return 0;
 }
@@ -134,12 +139,20 @@ int load_experiment(StartData * data)
                 push_usr(&exp->free_users, usr);
         }
         /*Генерация и конфигурирование новых пользователей*/
-        CODE
+        while(data->users > 0){
+                data->users -= 1;
+                usr = create_user(exp->data.days, random_next_range(5, 100), random_next_range(0, 500000));
+                if(usr == NULL){
+                        PERR("create user");
+                        return 1;
+                }
+                push_user(&exp->not_reg_users, usr);
+        }
         
         return 0;
 }
 
-void push_group(Grp ** groups, Grp * grp)
+static void push_group(Grp ** groups, Grp * grp)
 {
         if(grp == NULL)
                 return;
@@ -147,7 +160,7 @@ void push_group(Grp ** groups, Grp * grp)
         *groups = grp;
 }
 
-void push_user(Usr ** users, Usr * usr)
+static void push_user(Usr ** users, Usr * usr)
 {
         if(usr == NULL)
                 return;
@@ -155,7 +168,7 @@ void push_user(Usr ** users, Usr * usr)
         *users = usr;
 }
 
-Usr * pop_user(Usr ** users)
+static Usr * pop_user(Usr ** users)
 {
         if(*users == NULL)
                 return NULL;
@@ -166,7 +179,7 @@ Usr * pop_user(Usr ** users)
         return usr;
 }
 
-Grp * init_group()
+static Grp * init_group()
 {
 	Grp * grp;
         
@@ -185,7 +198,7 @@ Grp * init_group()
         return grp;
 }
 
-Grp * create_group(unsigned int size, unsigned int wusers, unsigned char percent_off)
+static Grp * create_group(unsigned int size, unsigned int wusers, unsigned char percent_off)
 {
         Grp * grp;
         
@@ -200,7 +213,7 @@ Grp * create_group(unsigned int size, unsigned int wusers, unsigned char percent
         retuen grp;
 }
 
-Usr * init_user()
+static Usr * init_user()
 {
 	Usr * usr;
         
@@ -222,7 +235,7 @@ Usr * init_user()
         return usr;
 }
 
-Usr * create_user(unsigned long long reg_days, unsigned char insert_p, unsigned int min_group_size)
+static Usr * create_user(unsigned long long reg_days, unsigned char insert_p, unsigned int min_group_size)
 {
         Usr * usr;
         
