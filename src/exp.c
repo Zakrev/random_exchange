@@ -2,7 +2,45 @@
 
 void register_users(Exp * exp)
 {
-        CODE
+        if(exp->not_reg_users == NULL)
+                return;
+        
+        int i = exp->data.register_intens;
+        Usr * usr;
+        
+        while(0 < i--){
+                if(random_next_range(0, 1) == 1)
+                        continue;
+                usr = pop_user(&exp->not_reg_users);
+                if(usr == NULL)
+                        return;
+                push_user(&exp->free_users, usr);
+        }
+}
+
+void insert_users_to_groups(Exp * exp)
+{
+        if(exp->free_users == NULL)
+                return;
+        
+        Usr * usr;
+        Grp * grp;
+        
+        grp = exp->groups;
+        while(grp != NULL){
+                if(exp->free_users == NULL)
+                        return;
+                usr = exp->free_users;
+                while(usr != NULL){
+                        //if( exp->free_users->data.min_group_size < grp->data.size && (random_next_range(0, 100) < exp->free_users->data.insert_p) ){
+                        if( random_next_range(0, 100) < exp->free_users->data.insert_p ){
+                                usr = usr->next;
+                                push_user(&grp->users, pop_user(&exp->free_users));
+                        } else
+                                usr = usr->next;
+                }
+                grp = grp->next;
+        }
 }
 
 int new_experiment(StartData * data)
@@ -175,6 +213,7 @@ static Usr * pop_user(Usr ** users)
         Usr * usr;
         usr = *users;
         *users = usr->next;
+        usr->next = NULL;
         
         return usr;
 }
